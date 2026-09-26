@@ -1,0 +1,9 @@
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { ArrowLeft, Mail, Shirt } from "lucide-react";
+import { Card, Button } from "@/components/ui";
+import { auth, firebaseConfigured } from "@/lib/firebase";
+
+export default function ForgotPassword(){const [email,setEmail]=useState("");const [sent,setSent]=useState(false);const [error,setError]=useState("");async function submit(e:React.FormEvent){e.preventDefault();setError("");if(!firebaseConfigured||!auth){setError("Connect Firebase to enable password reset. The local demo mode intentionally does not send email.");return}try{await sendPasswordResetEmail(auth,email);setSent(true)}catch(err){setError(err instanceof Error?err.message:"Unable to send reset email")}}return <div className="grid min-h-screen place-items-center bg-slate-50 p-5"><Card className="w-full max-w-md p-7"><Link href="/login" className="mb-7 inline-flex items-center gap-2 text-sm font-semibold text-slate-500"><ArrowLeft size={16}/>Back to sign in</Link><div className="grid h-11 w-11 place-items-center rounded-xl bg-sky-50 text-sky-600"><Mail size={18}/></div><h1 className="mt-5 text-2xl font-black">Reset your password</h1><p className="mt-2 text-sm text-slate-500">Enter the email linked to your ClosetSync account.</p>{sent?<div className="mt-6 rounded-xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-700">Reset email sent. Check your inbox.</div>:<form onSubmit={submit} className="mt-6 space-y-4"><input value={email} onChange={e=>setEmail(e.target.value)} required type="email" placeholder="you@example.com" className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-sky-400 focus:ring-4 focus:ring-sky-100"/>{error&&<div className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div>}<Button className="w-full"><Shirt size={15}/>Send reset email</Button></form>}</Card></div>}

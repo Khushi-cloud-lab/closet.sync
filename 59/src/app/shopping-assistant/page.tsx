@@ -1,0 +1,1 @@
+import { Protected } from "@/components/Protected"; import { ShoppingAssistantPage } from "@/components/ProductPages"; export default function Page(){return <Protected><ShoppingAssistantPage/></Protected>}

@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #f8fafc; color: #0f172a; font-family: Inter, Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+img { max-width: 100%; }
+::selection { background: #bae6fd; color: #082f49; }
+
+.bg-grid { background-image: linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.035) 1px,transparent 1px); background-size: 28px 28px; }
+
+.calendar-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; }
+.calendar-cell { min-height:92px; border:1px solid #e2e8f0; border-radius:14px; background:white; padding:8px; }
+@media(max-width:640px){.calendar-cell{min-height:72px;padding:6px}.calendar-cell .event{font-size:9px}}
